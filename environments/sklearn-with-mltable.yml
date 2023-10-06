@@ -1,0 +1,8 @@
+$schema: https://azuremlschemas.azureedge.net/latest/environment.schema.json
+
+name: sklearn-with-mltable
+version: 2023-10-04-17:00:00
+description: Environment for sklearn with mltable
+
+image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:20230919.v1
+conda_file: sklearn-with-mltable/conda_dependencies.yaml

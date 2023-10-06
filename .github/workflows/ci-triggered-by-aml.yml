@@ -1,0 +1,37 @@
+name: ci-triggered-by-aml-events
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - pipelines/02_ci_mltable.yml
+      - components/**
+      - environments/**
+      - endpoints/**
+  repository_dispatch:
+    types: [datadrift-event]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out repo
+        uses: actions/checkout@v2
+      - name: azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: setup
+        run: bash setup.sh
+        working-directory: .github/cicd
+        continue-on-error: true
+        env:
+          GROUP_PARAM: ${{ secrets.GROUP_PARAM }}
+          LOCATION_PARAM: ${{ secrets.LOCATION_PARAM }}
+          WORKSPACE_PARAM: ${{ secrets.WORKSPACE_PARAM }}
+          RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
+      - name: run job
+        run: bash -x ../.github/run-job.sh ci-mltable.yml "run-from-github-workflow"
+        working-directory: pipelines

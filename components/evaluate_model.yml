@@ -1,0 +1,29 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+
+name: evaluate_model
+display_name: Evaluate Model
+code: evaluate_model/evaluate_model.py
+environment: azureml:sklearn-with-mltable:2023-10-04-17:00:00
+
+inputs:
+  model_input:
+    type: mlflow_model
+    description: Input model filepath (will be read as mlflow files)
+  test_data:
+    type: uri_folder
+    description: Input file (parquet)
+  model_name:
+    type: string
+    description: Input model name (will be used for logging)
+
+outputs:
+  evaluation_output:
+    type: uri_folder
+    description: Output evaluation filepath (will be written as "score.txt")
+
+command: >-
+  python evaluate_model.py 
+  --test_data ${{inputs.test_data}}
+  --model_input ${{inputs.model_input}}
+  --model_name ${{inputs.model_name}}
+  --evaluation_output ${{outputs.evaluation_output}}

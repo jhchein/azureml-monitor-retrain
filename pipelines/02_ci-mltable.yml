@@ -1,0 +1,70 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+
+type: pipeline
+
+experiment_name: Diabetes-Model-CI-Pipeline
+display_name: Diabetes-Model-CI-Pipeline
+description: Pipeline to train and evaluate a diabetes model
+
+tags: {'devel_stage': 'eval'}
+settings:
+  default_compute: azureml:d-cpu-ds12-v2
+
+inputs:
+  model_name: monitoring-diabetes-clr-mdl
+  dataset: 
+    path: azureml:diabetes-mltable-training:2023.10.04.103459
+
+outputs:
+  train_data:
+    type: uri_folder
+  test_data:
+    type: uri_folder
+  validation_data:
+    type: uri_folder
+  trained_model:
+    type: mlflow_model
+  evaluation_output:
+    type: uri_folder
+  model_info_output_path:
+    type: uri_folder
+
+jobs:
+  split_mltable:
+    type: command
+    component: ../components/split_mltable.yml
+    inputs: 
+      input_dataset: ${{parent.inputs.dataset}}
+      random_seed: 42
+    outputs:
+      train_data: ${{parent.outputs.train_data}}
+      test_data: ${{parent.outputs.test_data}}
+      validation_data: ${{parent.outputs.validation_data}}
+
+  train:
+    type: command
+    component: ../components/train_model.yml
+    inputs:
+      train_data: ${{parent.jobs.split_mltable.outputs.train_data}}
+    outputs:
+      trained_model: ${{parent.outputs.trained_model}}
+
+  evaluate_model:
+    type: command
+    component: ../components/evaluate_model.yml
+    inputs:
+      model_input: ${{parent.jobs.train.outputs.trained_model}}
+      test_data: ${{parent.jobs.split_mltable.outputs.test_data}}
+      model_name: ${{parent.inputs.model_name}}
+    outputs:
+      evaluation_output: ${{parent.outputs.evaluation_output}}
+    
+  register_model:
+    type: command
+    component: ../components/register_model.yml
+    inputs:
+      model_name: ${{parent.inputs.model_name}}
+      model_path: ${{parent.jobs.train.outputs.trained_model}}
+      evaluation_output: ${{parent.jobs.evaluate_model.outputs.evaluation_output}}
+    outputs:
+      model_info_output_path: ${{parent.outputs.model_info_output_path}}
