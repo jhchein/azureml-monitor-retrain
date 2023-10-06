@@ -31,6 +31,11 @@ jobs:
           RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
       - name: deploy model
         run: |
-          az ml online-endpoint update -f endpoints/online/diabetes-endpoint.yml
-          az ml online-deployment update -f endpoints/online/diabetes-deployment.yml
+          az ml online-endpoint update -f endpoints/online/endpoint/diabetes-endpoint.yml --resource-group $RESOURCE_GROUP_NAME --workspace-name $WORKSPACE_PARAM
+          az ml online-deployment update -f endpoints/online/deployment/diabetes-deployment-custom.yml --resource-group $RESOURCE_GROUP_NAME --workspace-name $WORKSPACE_PARAM
         working-directory: pipelines
+        env:
+          GROUP_PARAM: ${{ secrets.GROUP_PARAM }}
+          LOCATION_PARAM: ${{ secrets.LOCATION_PARAM }}
+          WORKSPACE_PARAM: ${{ secrets.WORKSPACE_PARAM }}
+          RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
