@@ -33,5 +33,5 @@ jobs:
           WORKSPACE_PARAM: ${{ secrets.WORKSPACE_PARAM }}
           RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
       - name: run job
-        run: bash -x ../.github/cicd/run-job.sh ci-mltable.yml "run-from-github-workflow"
+        run: bash -x ../.github/cicd/run_job.sh ci-mltable.yml "run-from-github-workflow"
         working-directory: pipelines
