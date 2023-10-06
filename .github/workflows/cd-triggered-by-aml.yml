@@ -1,11 +1,12 @@
 name: cd-triggered-by-aml-events
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
   repository_dispatch:
     types: [model-registered-event]
 jobs:

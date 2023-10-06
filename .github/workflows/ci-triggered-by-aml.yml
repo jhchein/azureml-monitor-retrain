@@ -1,16 +1,16 @@
 name: ci-triggered-by-aml-events
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 1 * *"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - pipelines/*.yml
-      - components/**
-      - environments/**
-      - endpoints/**
+  # schedule:
+  #   - cron: "0 0 1 * *"
+  # pull_request:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - pipelines/*.yml
+  #     - components/**
+  #     - environments/**
+  #     - endpoints/**
   repository_dispatch:
     types: [datadrift-event]
 jobs:
@@ -33,5 +33,5 @@ jobs:
           WORKSPACE_PARAM: ${{ secrets.WORKSPACE_PARAM }}
           RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
       - name: run job
-        run: bash -x ../.github/run-job.sh ci-mltable.yml "run-from-github-workflow"
+        run: bash -x ../.github/cicd/run-job.sh ci-mltable.yml "run-from-github-workflow"
         working-directory: pipelines
