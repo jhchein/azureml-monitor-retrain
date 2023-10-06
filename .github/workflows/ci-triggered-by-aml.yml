@@ -7,7 +7,7 @@ on:
     branches:
       - main
     paths:
-      - pipelines/02_ci_mltable.yml
+      - pipelines/*.yml
       - components/**
       - environments/**
       - endpoints/**
