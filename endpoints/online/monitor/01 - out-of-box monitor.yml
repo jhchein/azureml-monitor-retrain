@@ -1,0 +1,21 @@
+# out-of-box-monitoring.yaml
+$schema:  http://azureml/sdk-2-0/Schedule.json
+name: diabetes-cli-deployment-2-oob
+display_name: Diabetes Model Monitoring
+description: Diabetes model monitoring setup with minimal configurations
+
+trigger:
+  # perform model monitoring activity daily at 3:15am
+  type: recurrence
+  frequency: week #can be minute, hour, day, week, month
+  interval: 1 # #every week
+  schedule: 
+    hours: 3 # at 3am
+    minutes: 15 # at 15 mins after 3am
+
+create_monitor:
+  compute: # specify a spark compute for monitoring job
+    instance_type: standard_e4s_v3
+    runtime_version: 3.2
+  monitoring_target:
+    endpoint_deployment_id: azureml:clr-diabetes-jhch-demo:cli-deployment-2

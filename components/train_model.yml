@@ -1,0 +1,25 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+type: command
+
+name: train_model
+display_name: Train Model 
+
+code: ./train_model
+
+environment: azureml:sklearn-with-mltable:2023-10-04-17:00:00
+
+is_deterministic: true
+
+inputs:
+  train_data:
+    type: uri_folder
+    description: Input file (parquet)
+outputs:
+  trained_model:
+    type: mlflow_model
+    description: Output model filepath (will be written as mlflow files)
+
+command: >-
+  python train_model.py
+  --train_data ${{inputs.train_data}}
+  --trained_model ${{outputs.trained_model}}

@@ -1,0 +1,23 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+
+name: register_model
+display_name: Register Model
+code: register_model/register_model.py
+command: >-
+  python register_model.py
+  --model_name ${{inputs.model_name}}
+  --model_path ${{inputs.model_path}}
+  --evaluation_output ${{inputs.evaluation_output}}
+  --model_info_output_path ${{outputs.model_info_output_path}}
+environment: azureml:sklearn-with-mltable:2023-10-04-17:00:00
+inputs:
+  model_name:
+    type: string
+  model_path:
+    type: mlflow_model
+  evaluation_output:
+    type: uri_folder
+outputs:
+  model_info_output_path:
+    type: uri_folder
+    description: Output model info filepath (will be written as "model_info.json")

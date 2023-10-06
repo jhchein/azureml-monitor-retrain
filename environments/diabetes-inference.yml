@@ -1,0 +1,8 @@
+$schema: https://azuremlschemas.azureedge.net/latest/environment.schema.json
+
+name: diabetes-inference
+version: 2023-10-04-18:15:00
+description: Environment for running the sklearn diabetes model on a managed online endpoint
+
+image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
+conda_file: diabetes-inference/conda.yml
