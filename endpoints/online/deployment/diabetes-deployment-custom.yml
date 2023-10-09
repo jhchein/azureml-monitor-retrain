@@ -7,7 +7,7 @@ description: >-
 
 tags: {"demo": "diabetes", "datacollection": "custom"}
 
-endpoint_name: clr-diabetes-jhch-demo
+endpoint_name: clr-diabetes-jhch-demo-cicd
 model: azureml:monitoring-diabetes-clr-mdl:3
 environment: azureml:diabetes-inference:2023-10-04-18:15:00
 code_configuration:
