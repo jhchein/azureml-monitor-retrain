@@ -32,7 +32,8 @@ jobs:
       - name: deploy model
         run: |
           az ml online-endpoint update -f endpoint/diabetes-endpoint.yml --resource-group $RESOURCE_GROUP_NAME --workspace-name $WORKSPACE_PARAM
-          az ml online-deployment update -f deployment/diabetes-deployment-custom.yml --resource-group $RESOURCE_GROUP_NAME --workspace-name $WORKSPACE_PARAM
+          deployment_name=cli-deployment-$(date +"%Y-%m-%d-%H-%M")
+          az ml online-deployment create -f deployment/diabetes-deployment-custom.yml --name=$deployment_name --resource-group $RESOURCE_GROUP_NAME --workspace-name $WORKSPACE_PARAM
         working-directory: endpoints/online/
         env:
           GROUP_PARAM: ${{ secrets.GROUP_PARAM }}
