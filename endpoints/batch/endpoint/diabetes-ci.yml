@@ -1,0 +1,4 @@
+$schema: https://azuremlschemas.azureedge.net/latest/batchEndpoint.schema.json
+name: diabetes-ci-2023-10-10
+description: Pipeline to train and evaluate a diabetes model
+auth_mode: aad_token

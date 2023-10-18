@@ -1,0 +1,33 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+type: command
+name: preprocess_production_data
+display_name: Preprocess Production Data
+
+description: |-
+  Preprocess production data for scoring.
+
+code: ./preprocess_production_data
+
+environment: azureml:sklearn-with-mltable:2023-10-04-17:00:00
+inputs:
+  input_data:
+    type: uri_folder
+    description: Production data to preprocess
+  data_window_start:
+    type: string
+    description: |
+      Start of the data window to use for scoring
+      Example: 2023-05-01T04:31:57.012Z
+  data_window_end:
+    type: string
+    description: |
+      End of the data window to use for scoring
+      Example: 2023-05-01T04:31:57.012Z
+outputs:
+  preprocessed_data:
+    type: mltable
+    description: Preprocessed production data
+
+command: >-
+  python preprocess_production_data.py --input_data ${{inputs.input_data}} --data_window_start ${{inputs.data_window_start}} --data_window_end ${{inputs.data_window_end}} --preprocessed_data ${{outputs.preprocessed_data}}
+
