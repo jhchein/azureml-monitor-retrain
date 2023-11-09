@@ -6,14 +6,16 @@ experiment_name: Diabetes-Model-CI-Pipeline
 display_name: Diabetes-Model-CI-Pipeline
 description: Pipeline to train and evaluate a diabetes model
 
-tags: {'devel_stage': 'eval'}
+tags:
+  "devel_stage": "eval"
+  "email": "hehein@microsoft.com"
 settings:
   default_compute: azureml:d-cpu-ds12-v2
 
 inputs:
   model_name: monitoring-diabetes-clr-mdl
-  dataset: 
-    path: azureml:diabetes-mltable-training:2023.10.04.103459
+  dataset:
+    path: azureml:diabetes-mltable-train:2023.10.13.173852
 
 outputs:
   train_data:
@@ -33,7 +35,7 @@ jobs:
   split_mltable:
     type: command
     component: ../components/split_mltable.yml
-    inputs: 
+    inputs:
       input_dataset: ${{parent.inputs.dataset}}
       random_seed: 42
     outputs:
@@ -58,7 +60,7 @@ jobs:
       model_name: ${{parent.inputs.model_name}}
     outputs:
       evaluation_output: ${{parent.outputs.evaluation_output}}
-    
+
   register_model:
     type: command
     component: ../components/register_model.yml
