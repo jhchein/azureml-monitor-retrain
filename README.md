@@ -85,7 +85,9 @@ With everything set up, we're now ready to deploy:
 
 #### Monitoring 📊
 
-Once we've collected production data (for example, by invoking the endpoint with production data from the first notebook), we can initiate monitoring of the data and model drift. This can be done via `az ml schedule create -f "endpoints/online/monitor/01 - out-of-box monitor.yml"` or `az ml schedule create -f "endpoints/online/monitor/02 - advanced-model-monitoring.yml"`.
+Once we've gathered production data (for instance, by invoking the endpoint with production data from the first notebook), we can kick-start the monitoring of data and model drift. This can be achieved via `az ml schedule create -f "endpoints/online/monitor/01 - out-of-box monitor.yml"` or `az ml schedule create -f "endpoints/online/monitor/02 - advanced-model-monitoring.yml"`.
+
+(_Optional_): For your convenience and to facilitate experimentation, we've included a straightforward Spark preprocessing component (`components\preprocess_production_data\`). This can be used for data and model drift detection using the `production data` we created in our notebooks, in case you prefer not to collect production data via an AzureML Online Endpoint Data Collector. The documentation provides detailed instructions on how to [monitor your own production data](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-monitor-model-performance?view=azureml-api-2&tabs=azure-cli#set-up-model-monitoring-by-bringing-your-own-production-data-to-azure-machine-learning).
 
 ### Automation via GitHub Actions 🤖
 
