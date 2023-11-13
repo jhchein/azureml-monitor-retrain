@@ -5,11 +5,11 @@
 
 Welcome to this comprehensive guide on mastering MLOps! This repository is designed to address the challenges of implementing robust machine learning operations, providing you with a hands-on tutorial to navigate the complexities of model training, deployment, monitoring, and retraining.
 
-The repository is structured around five detailed notebooks that guide you through the process of creating MLTable Datasets, training and deploying models, invoking endpoints, collecting data, creating and collecting synthetic data, and exploring collected data. These notebooks, located in the `notebooks` folder, offer a manual approach using the AzureML SDK or AzureML Studio UI.
+The repositorys journey starts with three detailed notebooks that guide you through the manual process of training and deploying models. These notebooks, located in the `notebooks` folder, offer a manual approach using the AzureML SDK and AzureML Studio UI.
 
-We then delve into the power of the AzureML CLI, with YML definitions for data assets, compute resources, training pipelines, and deployment scripts for batch and online endpoints housed in the `pipelines`, `components`, `environments`, and `resources` folders.
+Once a model is deployed, we introduce you to the AzureML datadrift monitor, a powerful tool for detecting **drifts in data**, **data quality**, or the **drift of the model** itself. This is crucial for maintaining the accuracy and reliability of your machine learning models over time.
 
-Once a model is deployed, we introduce you to the AzureML datadrift monitor, a powerful tool for detecting drifts in data, data quality, or the model itself. This is crucial for maintaining the accuracy and reliability of your machine learning models over time.
+Having learned the basics, we delve into the power of the AzureML CLI to start automating our project. Therefore you will find YML definitions for data assets, compute resources, training pipelines, and deployment scripts for batch and online endpoints housed in the `pipelines`, `components`, `environments`, and `resources` folders.
 
 Finally, we complete the MLOps cycle by automating training and deployment using GitHub Actions. These workflows, located under `.github\workflows\`, are triggered by AzureML Events from the Azure Event Grid, enabling seamless integration and automation of your MLOps.
 
@@ -66,10 +66,8 @@ Depending on your preference, clone this repository onto your local machine or A
 
 - Execute each of the Jupyter notebooks (found in the 'notebooks' folder) and follow the instructions meticulously. Each notebook will provide a detailed explanation of the process.
 - The initial notebook will generate demo data assets based on the Diabetes dataset.
-- The subsequent notebook illustrates how to construct a training pipeline using the SDK, followed by deploying and monitoring a model on a Managed Online Endpoint.
-- The third notebook shows how to invoke the endpoint while gathering production data.
-- In the fourth notebook, we will fabricate synthetic data, simulating data drift.
-- In the final notebook, we delve into the collected data from the endpoint.
+- The subsequent notebook illustrates how to construct a training pipeline using the SDK, followed by deploying and monitoring a model on a Managed Online Endpoint. This monitoring includes tracking inference data, monitoring drift of data and model, and monitoring the performance on the model endpoint.
+- In the third notebook, we will fabricate synthetic data, simulating data drift, and use it to invoke an endpoint.
 
 ### AzureML CLI 🛠️
 

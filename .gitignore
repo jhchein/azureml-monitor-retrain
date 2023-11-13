@@ -163,3 +163,4 @@ _deprecated*
 
 notebooks/config.json
 notebooks/data/*
+notebooks/models/*
