@@ -5,7 +5,7 @@
 
 Welcome to this comprehensive guide on mastering MLOps! This repository is designed to address the challenges of implementing robust machine learning operations, providing you with a hands-on tutorial to navigate the complexities of model training, deployment, monitoring, and retraining.
 
-The repositorys journey starts with three detailed notebooks that guide you through the manual process of training and deploying models. These notebooks, located in the `notebooks` folder, offer a manual approach using the AzureML SDK and AzureML Studio UI.
+The repositorys journey starts with three detailed notebooks that guide you through the process of training and deploying models. These notebooks, located in the `notebooks` folder, offer a manual approach using the AzureML SDK and AzureML Studio UI.
 
 Once a model is deployed, we introduce you to the AzureML datadrift monitor, a powerful tool for detecting **drifts in data**, **data quality**, or the **drift of the model** itself. This is crucial for maintaining the accuracy and reliability of your machine learning models over time.
 
