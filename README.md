@@ -1,6 +1,8 @@
 # From Hands-On to Automation: MLOps Implementation with Azure ML
 **A Comprehensive Journey Covering CI/CD, Model Monitoring, and Retraining 🚀**
 
+`#AzureML`, `#ml-ops`, `#automation`, `#data-drift`, `#model-drift`, `#managed-online-endpoints`, `#github-actions`, `#logic-apps`, `#solution-accelerator`
+
 Welcome to this comprehensive guide on mastering MLOps! This repository is designed to address the challenges of implementing robust machine learning operations, providing you with a hands-on tutorial to navigate the complexities of model training, deployment, monitoring, and retraining.
 
 The repository is structured around five detailed notebooks that guide you through the process of creating MLTable Datasets, training and deploying models, invoking endpoints, collecting data, creating and collecting synthetic data, and exploring collected data. These notebooks, located in the `notebooks` folder, offer a manual approach using the AzureML SDK or AzureML Studio UI.
