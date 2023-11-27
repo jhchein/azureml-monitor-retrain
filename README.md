@@ -1,8 +1,11 @@
-# MLOps: CI/CD, Monitoring, and Retraining 🚀
+# From Hands-On to Automation: MLOps Implementation with Azure ML
+**A Comprehensive Journey Covering CI/CD, Model Monitoring, and Retraining 🚀**
+
+`#AzureML`, `#ml-ops`, `#automation`, `#data-drift`, `#model-drift`, `#managed-online-endpoints`, `#github-actions`, `#logic-apps`, `#solution-accelerator`
 
 Welcome to this comprehensive guide on mastering MLOps! This repository is designed to address the challenges of implementing robust machine learning operations, providing you with a hands-on tutorial to navigate the complexities of model training, deployment, monitoring, and retraining.
 
-The repositorys journey starts with three detailed notebooks that guide you through the manual process of training and deploying models. These notebooks, located in the `notebooks` folder, offer a manual approach using the AzureML SDK and AzureML Studio UI.
+The repositorys journey starts with three detailed notebooks that guide you through the process of training and deploying models. These notebooks, located in the `notebooks` folder, offer a manual approach using the AzureML SDK and AzureML Studio UI.
 
 Once a model is deployed, we introduce you to the AzureML datadrift monitor, a powerful tool for detecting **drifts in data**, **data quality**, or the **drift of the model** itself. This is crucial for maintaining the accuracy and reliability of your machine learning models over time.
 
