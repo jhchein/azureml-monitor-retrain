@@ -1,0 +1,6 @@
+asset:
+    title: MLOps with Azure ML - CI/CD, Monitoring & Retraining - 2023-12-20
+    description: Demonstrate the dynamic capabilities of Machine Learning Operations with this comprehensive Azure ML OPs end-to-end example. The repository offers a simple approach to understanding and implementing MLOps, from manual training of models to implementing CI/CD pipelines, model monitoring, and retraining strategies. It contains detailed Jupyter notebooks for model training and deployment, provides AzureML CLI templates for automation, and leverages the Event Grid and GitHub Actions for seamless MLOps integration.
+    products: AzureML, Azure Machine Learning, Azure CLI, GitHub Actions, Azure Monitor, Azure Logic Apps
+    scenarios: Machine Learning Implementation, Automated ML Workflows, Model Monitoring, Continuous Integration and Deployment in ML
+    tags: MLOps, AzureML, CI/CD, Model Monitoring, Automated Retraining, GitHub Actions, Azure Machine Learning, Machine Learning
