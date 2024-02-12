@@ -1,0 +1,46 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+
+type: pipeline
+
+experiment_name: Test-prepro-component
+display_name: Test Preprocessing Component
+description: Pipeline to test the preprocessing component
+
+tags:
+  "devel_stage": "dev"
+  "email": "hehein@microsoft.com"
+
+settings:
+  default_compute: serverless
+
+inputs:
+  production_dataset:
+    datastore: azureml:workspaceblobstore
+    type: uri_folder
+    path: azureml:synthetic-urifolder-production:2024.02.12.103814
+
+outputs:
+  preprocessing_output:
+    type: mltable
+    name: synthetic-preprocessed-production
+    mode: direct
+    path: azureml://datastores/workspaceblobstore/paths/data/production_prepro_debug/
+
+jobs:
+  preprocess:
+    type: spark
+    component: ../components/preprocess_synthetic_data/preprocess_synthetic_data.yml
+    # component: azureml:preprocess_synthetic_data_spark:202402081126
+    inputs:
+      input_data: ${{parent.inputs.production_dataset}}
+      data_window_start: "2021-01-06T00:00:00.000Z"
+      data_window_end: "2021-02-06T00:00:00.000Z"
+    outputs:
+      preprocessed_input_data: ${{parent.outputs.preprocessing_output}}
+
+    identity:
+      type: user_identity
+
+    resources:
+      instance_type: standard_e4s_v3
+      runtime_version: "3.3"
