@@ -5,12 +5,16 @@
 
 import argparse
 import os
+import logging
 import tempfile
 from datetime import datetime
 
 from azureml.fsspec import AzureMachineLearningFileSystem
 from dateutil import parser
 from pyspark.sql import SparkSession
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
 
 
 def init_spark():
@@ -26,7 +30,7 @@ def save_spark_df_as_mltable(metrics_df, folder_path: str):
     ).mltable(folder_path)
 
 
-def mdc_preprocessor(
+def preprocess(
     data_window_start: str,
     data_window_end: str,
     input_data: str,
@@ -43,20 +47,20 @@ def mdc_preprocessor(
         str(end_datetime.strftime(format_data)), format_data
     )
 
-    print(f"Start datetime: {start_datetime}")
-    print(f"End datetime: {end_datetime}")
+    logging.info(f"Start datetime: {start_datetime}")
+    logging.info(f"End datetime: {end_datetime}")
 
     spark = init_spark()
     df = spark.read.parquet(input_data)
 
-    print(f"Total lines: {df.count()}")
+    logging.info(f"Total lines: {df.count()}")
 
     df = df.withColumn("timestamp", df["timestamp"].cast("timestamp"))
     df = df.filter(
         (df["timestamp"] >= start_datetime) & (df["timestamp"] <= end_datetime)
     )
 
-    print(f"Total lines after filtering: {df.count()}")
+    logging.info(f"Total lines after filtering: {df.count()}")
 
     if df.count() == 0:
         raise Exception(
@@ -74,11 +78,15 @@ def mdc_preprocessor(
     fs.upload(
         lpath=save_path,  # local path
         rpath="",  # remote path
-        **{"overwrite": "MERGE_WITH_OVERWRITE"},
+        overwrite="MERGE_WITH_OVERWRITE",
         recursive=True,
     )
 
+    logging.info("Processed parquet file uploaded.")
+
     save_spark_df_as_mltable(df, preprocessed_input_data)
+
+    logging.info("Uploaded MLTable.")
 
 
 def run():
@@ -91,7 +99,7 @@ def run():
     parser.add_argument("--preprocessed_input_data", type=str)
     args = parser.parse_args()
 
-    mdc_preprocessor(
+    preprocess(
         args.data_window_start,
         args.data_window_end,
         args.input_data,
