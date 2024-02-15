@@ -162,5 +162,5 @@ cython_debug/
 _deprecated*
 
 notebooks/config.json
-notebooks/data/*
+notebooks/data/tmp/*
 notebooks/models/*
