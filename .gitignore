@@ -164,3 +164,4 @@ _deprecated*
 notebooks/config.json
 notebooks/data/tmp/*
 notebooks/models/*
+pipelines/test-*
