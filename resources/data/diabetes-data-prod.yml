@@ -1,6 +1,0 @@
-$schema: https://azuremlschemas.azureedge.net/latest/data.schema.json
-
-name: diabetes-prod
-type: uri_file
-description: Second part of Diabetes example dataset from https://raw.githubusercontent.com/MicrosoftLearning/mslearn-dp100/main/data/diabetes2.csv
-path: https://raw.githubusercontent.com/MicrosoftLearning/mslearn-dp100/main/data/diabetes2.csv

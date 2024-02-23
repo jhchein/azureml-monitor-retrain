@@ -27,6 +27,16 @@ def parse_args():
     args, _ = parser.parse_known_args()
     print(f"Arguments: {args}")
 
+    lines = [
+        f"Model name: {args.model_name}",
+        f"Model path: {args.model_path}",
+        f"Evaluation output path: {args.evaluation_output}",
+        f"model_info_output_path: {args.model_info_output_path}",
+    ]
+
+    for line in lines:
+        print(line)
+
     return args
 
 
@@ -57,6 +67,10 @@ def main(args):
         print("Writing JSON")
         dict = {"id": "{0}:{1}".format(args.model_name, model_version)}
         output_path = os.path.join(args.model_info_output_path, "model_info.json")
+
+        if not os.path.exists(output_path):
+            os.makedirs(args.model_info_output_path)
+
         with open(output_path, "w") as of:
             json.dump(dict, fp=of)
 
@@ -71,16 +85,6 @@ if __name__ == "__main__":
     # -------------------------------------- #
 
     args = parse_args()
-
-    lines = [
-        f"Model name: {args.model_name}",
-        f"Model path: {args.model_path}",
-        f"Evaluation output path: {args.evaluation_output}",
-        f"model_info_output_path: {args.model_info_output_path}",
-    ]
-
-    for line in lines:
-        print(line)
 
     main(args)
 

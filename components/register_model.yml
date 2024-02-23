@@ -9,7 +9,7 @@ command: >-
   --model_path ${{inputs.model_path}}
   --evaluation_output ${{inputs.evaluation_output}}
   --model_info_output_path ${{outputs.model_info_output_path}}
-environment: azureml:sklearn-with-mltable:2023-10-04-17:00:00
+environment: azureml:sklearn-with-mltable@latest
 inputs:
   model_name:
     type: string

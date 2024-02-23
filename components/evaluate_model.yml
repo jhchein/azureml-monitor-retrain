@@ -3,14 +3,14 @@ $schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.jso
 name: evaluate_model
 display_name: Evaluate Model
 code: evaluate_model/evaluate_model.py
-environment: azureml:sklearn-with-mltable:2023-10-04-17:00:00
+environment: azureml:sklearn-with-mltable@latest
 
 inputs:
   model_input:
     type: mlflow_model
     description: Input model filepath (will be read as mlflow files)
   test_data:
-    type: uri_folder
+    type: uri_file
     description: Input file (parquet)
   model_name:
     type: string
