@@ -15,6 +15,7 @@ def init():
     global model
     global input_schema
     global inputs_collector, outputs_collector, inputs_outputs_collector
+
     inputs_collector = Collector(
         name="model_inputs", on_error=lambda e: logging.info("ex:{}".format(e))
     )
@@ -28,6 +29,8 @@ def init():
     # "model" is the path of the mlflow artifacts when the model was registered. For automl
     # models, this is generally "mlflow-model".
     model_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"), "model")
+    print("model_path:{}".format(model_path))
+    print("model_path_content:{}".format(os.listdir(model_path)))
     model = mlflow.pyfunc.load_model(model_path)
     input_schema = model.metadata.get_input_schema()
 

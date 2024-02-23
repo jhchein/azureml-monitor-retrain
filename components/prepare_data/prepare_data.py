@@ -28,7 +28,6 @@ def main(args):
     tbl = mltable.load(args.input_dataset)
 
     df = tbl.to_pandas_dataframe()
-    df = df.drop(columns=["timestamp"])
 
     # Set random state (considered safer than np.random.seed())
     rng = np.random.default_rng(args.random_state)

@@ -18,4 +18,4 @@ create_monitor:
     instance_type: standard_e4s_v3
     runtime_version: "3.3"
   monitoring_target:
-    endpoint_deployment_id: azureml:clr-diabetes-jhch-demo:cli-deployment-2
+    endpoint_deployment_id: azureml:synthetic-predictive-maintenance-endpoint:cli-deployment-1

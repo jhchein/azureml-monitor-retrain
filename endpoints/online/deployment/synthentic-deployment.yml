@@ -1,17 +1,17 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
 
-name: cli-deployment-2
+name: cli-deployment-2 # cd pipeline will override this name
 
 description: >-
-  Deploy a diabetes classification model with custom logging to an online endpoint
+  Deploy a synthetic data  predictive maintenance classification model with custom logging to an online endpoint
 
-tags: {"demo": "diabetes", "datacollection": "custom"}
+tags: {"demo": "synthetic predictive maintenance", "datacollection": "custom"}
 
-endpoint_name: clr-diabetes-jhch-demo-cicd
-model: azureml:monitoring-diabetes-clr-mdl:3
-environment: azureml:diabetes-inference:2023-10-04-18:15:00
+endpoint_name: synth-pred-maint-endpoint
+model: azureml:synthetic-pred-maintenance@latest
+environment: azureml:synthetic-predmaintenance-inference@latest
 code_configuration:
-  code: diabetes-deployment-custom
+  code: synthetic-deployment-custom # custom logging
   scoring_script: score.py
 instance_type: Standard_F2s_v2 # alternatives: Standard_DS3_v2, Standard_F2s_v2
 instance_count: 1

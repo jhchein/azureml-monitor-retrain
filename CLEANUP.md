@@ -63,10 +63,18 @@
 - [ ] Think about concept. Why deploy production to Managed Online Endpoints?
   - [ ] Differentiate between BYOD and MoE
   - [ ] Explain in Readme
-- [ ] Update Endpoints
-- [ ] Update Deployments
 - [ ] Update inference environment
-- [ ] Update cd-triggered-by-aml
+  - [x] Dev
+  - [ ] test
+- [ ] Update Endpoints
+  - [x] dev
+  - [ ] test
+- [ ] Update Deployments
+  - [x] dev
+  - [ ] test
+    - [ ] model not served
+- [ ] Update cd pipeline
+  - [ ] test
 
 ### Part 3 - CI/CD
 
@@ -77,6 +85,9 @@
       - [ ] datadrift event
 
 ### Part 4 - Monitor
+
+- [x] Dev
+- [x] Test
 
 ## Should
 

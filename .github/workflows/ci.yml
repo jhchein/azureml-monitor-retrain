@@ -12,7 +12,7 @@ on:
   #     - environments/**
   #     - endpoints/**
   repository_dispatch:
-    types: [datadrift-event]
+    types: [datadrift-event] # the name of the event that triggers the workflow
 jobs:
   build:
     runs-on: ubuntu-latest

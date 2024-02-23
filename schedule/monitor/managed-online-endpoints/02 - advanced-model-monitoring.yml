@@ -1,7 +1,7 @@
 # advanced-model-monitoring.yaml
 $schema: https://azuremlschemas.azureedge.net/latest/monitorSchedule.schema.json
-name: diabetes-cli-deployment-2-adv
-display_name: Diabetes model monitoring
+name: synthetic-cli-deployment-2-adv
+display_name: Synthetic predictive maintenance model monitoring
 description: Example model monitoring setup with advanced configurations
 
 trigger:
@@ -19,7 +19,7 @@ create_monitor:
     runtime_version: '3.3'
   monitoring_target:
     ml_task: classification
-    endpoint_deployment_id: azureml:clr-diabetes-jhch-demo:sklearn-diabetes-custom-yml
+    endpoint_deployment_id: azureml:synthetic-predictive-maintenance-endpoint:cli-deployment-1
   
   monitoring_signals:
     advanced_data_drift: # monitoring signal name, any user defined name works
@@ -27,10 +27,10 @@ create_monitor:
       # target_dataset is optional. By default target dataset is the production inference data associated with Azure Machine Learning online endpoint
       reference_data:
         input_data:
-          path: azureml:diabetes-training:1 # use training data as comparison baseline
-          type: uri_folder
+          path: azureml:synthetic-mltable-training@latest # use training data as comparison baseline
+          type: mltable
         data_context: training
-        target_column_name: Diabetic
+        target_column_name: failure
       features: 
         top_n_feature_importance: 3 # monitor drift for top 3 features
       metric_thresholds:
@@ -43,8 +43,8 @@ create_monitor:
       # target_dataset is optional. By default target dataset is the production inference data associated with Azure Machine Learning online depoint
       reference_data:
         input_data:
-          path: azureml:diabetes-training:1
-          type: uri_folder
+          path: azureml:synthetic-mltable-training@latest
+          type: mltable
         data_context: training
       # features: # monitor data quality for 3 individual features only
       #   - feature_A
@@ -63,10 +63,10 @@ create_monitor:
       # Azure Machine Learning model monitoring will automatically join both model_inputs and model_outputs data and used it for computation
       reference_data:
         input_data:
-          path: azureml:diabetes-training:1
-          type: uri_folder
+          path: azureml:synthetic-mltable-training@latest
+          type: mltable
         data_context: training
-        target_column_name: Diabetic
+        target_column_name: failure
       metric_thresholds:
         normalized_discounted_cumulative_gain: 0.9
   

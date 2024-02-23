@@ -1,0 +1,8 @@
+$schema: https://azuremlschemas.azureedge.net/latest/environment.schema.json
+
+name: synthetic-predmaintenance-inference
+version: 2024-02-23-13:10:00
+description: Environment for running the synthetic predictive maintenance model on a managed online endpoint
+
+image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu22.04
+conda_file: synthetic-inference/conda.yml
