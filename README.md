@@ -27,9 +27,7 @@ The two notebooks `00 - Prepare Data Assets.ipynb` and `01 - Train and Deploy.ip
 
 AzureML Monitoring requires a Spark Component to translate production data (from a Uri_folder) to a relational format (mltable). We will therefore need to register a preprocessing component.
 
-Feel free to investigate `components/preprocess_production_data/preprocess_production_data.yml`.
-
-Afterwards, register the component via `az ml component create -f components/preprocess_production_data/preprocess_production_data.yml`.
+Feel free to investigate `components/preprocess_production_data/preprocess_production_data.yml`, then afterwards, register the component via `az ml component create -f components/preprocess_production_data/preprocess_production_data.yml`.
 
 #### Scheduling the Monitor 📊
 
@@ -37,7 +35,7 @@ Familiarize yourself and then update `schedule/monitor/bring-your-own-data/01 - 
 
 Deploy the schedule using:
 
-`az ml schedule create --file './schedule/monitor/bring-your-own-data/01 - synthetic-data.yml' -g <resource-group> --workspace-name <workspace-name>`
+`az ml schedule create --file './schedule/monitor/bring-your-own-data/01 - synthetic-data.yml'`
 
 Examine the monitor in your AzureML Studio. Manually trigger the first run, wait, and then explore the monitoring metrics.
 
@@ -45,9 +43,7 @@ Examine the monitor in your AzureML Studio. Manually trigger the first run, wait
 
 ### Create Training Environment
 
-Familiarize yourself with the training environment definition `environments/sklearn-with-mltable.yml`, then execute:
-
-`az ml environment create --resource-group <resource-group> --workspace-name <workspace-name> --file environments/sklearn-with-mltable.yml`
+Familiarize yourself with the training environment definition `environments/sklearn-with-mltable.yml`, then execute: `az ml environment create --file environments/sklearn-with-mltable.yml`
 
 ### Continuous Integration (CI) 🔄
 
