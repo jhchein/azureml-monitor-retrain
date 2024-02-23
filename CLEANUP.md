@@ -25,16 +25,6 @@
             - [x] test
           - [x] Solve: OSError: Cannot save file into a non-existent directory: '/mnt/azureml/cr/j/dc2508abf54c48c49e73137d83673775/cap/data-capability/wd/validation_data/validation_data'
             - [x] test
-          - [ ] need an absolute path, not a relative path, to training-train mltable
-            - [ ] ~~option 1~~
-              - [ ] ~~convert train, val, test to urifile~~
-              - [ ] ~~register train as mltable later~~
-                - [ ] ~~is there a component for that?~~
-            - [ ] option 2
-              - [ ] get the absolute path somehow?
-                - [ ] constructed the path. MLTable does not work properly with it.
-            - [ ] option 3
-              - [ ] use uri_file
     - [x] train
       - [x] update environment (latest)
       - [x] clean up
@@ -56,15 +46,10 @@
       - [x] Does it properly use the deploy flag?
       - [x] test
   - [x] Register training data output
-  - [ ] Remove timestamp from features
-    - [ ] Remove from monitor
-      - [x] Update Monitor training data
-        - [x] Use pipeline dataset output (training-train)
-    - [ ] test
 - [x] Environments
   - [x] Use 2023-10-09-15:45:00 for now
     - [x] replace with new env
-- [ ] Update Status tag to 
+- [ ] Update Status tag to
   - [x] testing
   - [ ] production
 - [x] Do we need all pipeline outputs?
@@ -76,6 +61,7 @@
 ### Part 2 - CD
 
 - [ ] Think about concept. Why deploy production to Managed Online Endpoints?
+  - [ ] Differentiate between BYOD and MoE
   - [ ] Explain in Readme
 - [ ] Update Endpoints
 - [ ] Update Deployments
@@ -96,6 +82,7 @@
 
 - [ ] Remove all unused code
 - [ ] Update Readme
+- [ ] Use the correct training data in Monitoring
 
 ## Could
 
