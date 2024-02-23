@@ -12,11 +12,11 @@ is_deterministic: true
 
 inputs:
   train_data:
-    type: mltable
-    description: Input file (MLTable, parquet)
+    type: uri_file
+    description: Input file (uri_file, parquet)
   validation_data:
-    type: mltable
-    description: Input file (MLTable, parquet)
+    type: uri_file
+    description: Input file (uri_file, parquet)
 outputs:
   trained_model:
     type: mlflow_model

@@ -20,7 +20,7 @@ inputs:
 outputs:
   train_data:
     type: mltable
-    name: synthetic-mltable-training-train
+    name: synthetic-urifile-train
   # model_info_output_path:
   #   type: uri_folder
   # trained_model:

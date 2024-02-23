@@ -2,9 +2,9 @@ $schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.jso
 type: command
 
 name: prepare_data
-display_name: Prepare Data (Train/Val/Test Split, MLTable)
+display_name: Prepare Data (Train/Val/Test Split, uri_file)
 description: |-
-  Simple example component for Azure ML with MLTable input and Train/Validation/Test MLTable outputs.
+  Simple example component for Azure ML with MLTable input and Train/Validation/Test uri_file outputs.
 
 code: ./prepare_data/
 
@@ -15,7 +15,7 @@ is_deterministic: true
 inputs:
   input_dataset:
     type: mltable
-    description: Input file (must be mltable)
+    description: Input file containing the dataset to be split
   random_state: 
     type: integer
     default: 42
@@ -23,14 +23,14 @@ inputs:
 
 outputs:
   train_data:
-    type: mltable
-    description: Training dataset, MLTable, colocated `data.parquet` file
+    type: uri_file
+    description: Training dataset, uri_file
   validation_data:
-    type: mltable
-    description: Validation dataset, MLTable, colocated `data.parquet` file
+    type: uri_file
+    description: Validation dataset, uri_file
   test_data:
-    type: mltable
-    description: Test dataset, MLTable, colocated `data.parquet` file
+    type: uri_file
+    description: Test dataset, uri_file
 
 command: >-
   python prepare_data.py

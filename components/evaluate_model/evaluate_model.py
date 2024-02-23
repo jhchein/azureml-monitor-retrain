@@ -12,7 +12,6 @@ from pathlib import Path
 import mlflow
 import mlflow.pyfunc
 import mlflow.sklearn
-import mltable
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -37,7 +36,7 @@ def parse_args():
         "--test_data",
         dest="test_data",
         type=str,
-        help="Path to test dataset (mltable, data.parquet)",
+        help="Path to test dataset (uri_file, data.parquet)",
     )
     parser.add_argument(
         "--evaluation_output",
@@ -56,11 +55,7 @@ def parse_args():
 def main(args):
     """Read trained model and test dataset, evaluate model and save result"""
 
-    # print the content of the test_data directory
-    # print(f"test_data directory content: {list(Path(args.test_data).glob('*'))}")
-
-    tbl = mltable.load(args.test_data)
-    df = tbl.to_pandas_dataframe()
+    df = pd.read_parquet(args.test_data)
     X, y = df.drop(columns=["failure"]), df["failure"]
 
     # Load the model from input port

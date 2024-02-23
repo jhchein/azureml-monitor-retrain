@@ -3,6 +3,7 @@ from argparse import ArgumentParser
 import mlflow
 import mltable
 import numpy as np
+import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn.metrics import (
     accuracy_score,
@@ -72,8 +73,7 @@ def log_confusion_matrix(y, yhat):
 
 
 def load_data(data_path: str):
-    tbl = mltable.load(data_path)
-    df = tbl.to_pandas_dataframe()
+    df = pd.read_parquet(data_path + "/data.parquet")
     return df.drop(columns=["failure"]), df["failure"]
 
 

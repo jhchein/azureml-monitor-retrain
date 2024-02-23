@@ -10,7 +10,7 @@ inputs:
     type: mlflow_model
     description: Input model filepath (will be read as mlflow files)
   test_data:
-    type: mltable
+    type: uri_file
     description: Input file (parquet)
   model_name:
     type: string

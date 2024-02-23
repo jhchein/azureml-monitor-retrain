@@ -28,8 +28,8 @@ create_monitor:
       type: data_drift
       reference_data:
         input_data:
-          path: azureml:synthetic-mltable-training-train@latest
-          type: uri_file
+          path: azureml:synthetic-mltable-training@latest
+          type: mltable
         data_context: training
         target_column_name: failure
       production_data:
@@ -54,7 +54,7 @@ create_monitor:
       type: data_quality
       reference_data:
         input_data:
-          path: azureml:synthetic-mltable-training-train@latest
+          path: azureml:synthetic-mltable-training@latest
           type: mltable
         target_column_name: failure
         data_context: training
@@ -93,7 +93,7 @@ create_monitor:
             lookback_window_size: P7D
       reference_data:
         input_data:
-          path: azureml:synthetic-mltable-training-train@latest
+          path: azureml:synthetic-mltable-training@latest
           type: mltable
         data_context: training
       alert_enabled: true
