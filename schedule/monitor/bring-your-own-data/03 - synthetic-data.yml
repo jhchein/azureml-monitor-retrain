@@ -1,16 +1,16 @@
-$schema: http://azureml/sdk-2-0/Schedule.json
-name: synthetic-monitor-24-02-15-14-00
+$schema: https://azuremlschemas.azureedge.net/latest/monitorSchedule.schema.json
+name: synthetic-monitor-24-02-21-08-45
 display_name: Synthetic predictive maintenance example model monitoring
 description: Example model monitoring setup with advanced configurations
 
 trigger:
   type: recurrence
-  frequency: day  #can be minute, hour, day, week, month
-  # week_days: sunday
-  interval: 3 # every 3 days
-  schedule: 
-    hours: 15
-    minutes: 0
+  frequency: week  #can be minute, hour, day, week, month
+  interval: 1 # every 3 days
+  schedule:
+      hours: 7
+      minutes: 0
+      week_days: monday
 
 create_monitor:
 
@@ -20,25 +20,27 @@ create_monitor:
 
   monitoring_target:
     ml_task: classification
-    model_id: azureml:monitoring-synthetic-pred-maintenance:1
+    model_id: azureml:synthetic-pred-maintenance@latest
 
   monitoring_signals:
 
-    advanced_data_drift: # monitoring signal name, any user defined name works
+    advanced_data_drift:
       type: data_drift
       reference_data:
         input_data:
-          path: azureml:synthetic-mltable-training@latest # use training data as comparison baseline
-          type: mltable
+          path: azureml:synthetic-mltable-training-train@latest
+          type: uri_file
         data_context: training
         target_column_name: failure
       production_data:
         input_data:
-          path: azureml:synthetic-urifolder-production@latest
+          path: azureml:synthetic-urifolder-production-outputs@latest
           type: uri_folder
         data_context: model_inputs
         pre_processing_component: azureml:preprocess_synthetic_data_spark:2024-02-12-13-39-42-1586336
-        data_window_size: P7D
+        data_window:
+            lookback_window_offset: P0D
+            lookback_window_size: P7D
       features: 
         top_n_feature_importance: 10
       alert_enabled: true
@@ -52,29 +54,31 @@ create_monitor:
       type: data_quality
       reference_data:
         input_data:
-          path: azureml:synthetic-mltable-training@latest
+          path: azureml:synthetic-mltable-training-train@latest
           type: mltable
         target_column_name: failure
         data_context: training
       production_data:
         input_data:
-          path: azureml:synthetic-urifolder-production@latest
+          path: azureml:synthetic-urifolder-production-outputs@latest
           type: uri_folder
         data_context: model_inputs
         pre_processing_component: azureml:preprocess_synthetic_data_spark:2024-02-12-13-39-42-1586336
-        data_window_size: P7D
+        data_window:
+            lookback_window_offset: P0D
+            lookback_window_size: P7D
       alert_enabled: true
       features:
         top_n_feature_importance: 10
       metric_thresholds:
         numerical:
-          data_type_error_rate: 0
-          null_value_rate: 0
-          out_of_bounds_rate: 0
+          data_type_error_rate: 0.01
+          null_value_rate: 0.01
+          out_of_bounds_rate: 0.01
         categorical:
-          data_type_error_rate: 0
-          null_value_rate: 0
-          out_of_bounds_rate: 0
+          data_type_error_rate: 0.01
+          null_value_rate: 0.01
+          out_of_bounds_rate: 0.01
 
     advanced_prediction_drift:
       type: prediction_drift
@@ -84,10 +88,12 @@ create_monitor:
           type: uri_folder
         data_context: model_inputs
         pre_processing_component: azureml:preprocess_synthetic_data_spark:2024-02-12-13-39-42-1586336
-        data_window_size: P7D
+        data_window:
+            lookback_window_offset: P0D
+            lookback_window_size: P7D
       reference_data:
         input_data:
-          path: azureml:synthetic-mltable-training@latest
+          path: azureml:synthetic-mltable-training-train@latest
           type: mltable
         data_context: training
       alert_enabled: true

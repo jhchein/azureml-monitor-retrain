@@ -6,12 +6,17 @@ Saves predictions, evaluation results and deploy flag.
 """
 
 import argparse
+import os
 from pathlib import Path
 
+import mlflow
+import mlflow.pyfunc
+import mlflow.sklearn
+import mltable
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
-
+from mlflow.tracking import MlflowClient
 from sklearn.metrics import (
     accuracy_score,
     confusion_matrix,
@@ -21,11 +26,6 @@ from sklearn.metrics import (
     roc_auc_score,
 )
 
-import mlflow
-import mlflow.sklearn
-import mlflow.pyfunc
-from mlflow.tracking import MlflowClient
-
 
 def parse_args():
     """Parse input arguments"""
@@ -34,9 +34,16 @@ def parse_args():
     parser.add_argument("--model_name", type=str, help="Name of registered model")
     parser.add_argument("--model_input", type=str, help="Path of input model")
     parser.add_argument(
-        "--test_data", dest="test_data", type=str, help="Path to test dataset"
+        "--test_data",
+        dest="test_data",
+        type=str,
+        help="Path to test dataset (mltable, data.parquet)",
     )
-    parser.add_argument("--evaluation_output", type=str, help="Path of eval results")
+    parser.add_argument(
+        "--evaluation_output",
+        type=str,
+        help="Path to store the eval results (score.txt)",
+    )
     parser.add_argument(
         "--runner", type=str, help="Local or Cloud Runner", default="CloudRunner"
     )
@@ -50,40 +57,28 @@ def main(args):
     """Read trained model and test dataset, evaluate model and save result"""
 
     # print the content of the test_data directory
-    print(f"test_data directory content: {list(Path(args.test_data).glob('*'))}")
+    # print(f"test_data directory content: {list(Path(args.test_data).glob('*'))}")
 
-    # Load the test data
-    test_data = pd.read_parquet(Path(args.test_data))
-
-    # Split the data into inputs and outputs
-    y_test = test_data["Diabetic"]
-    X_test = test_data[
-        [
-            "Pregnancies",
-            "PlasmaGlucose",
-            "DiastolicBloodPressure",
-            "TricepsThickness",
-            "SerumInsulin",
-            "BMI",
-            "DiabetesPedigree",
-            "Age",
-        ]
-    ]
+    tbl = mltable.load(args.test_data)
+    df = tbl.to_pandas_dataframe()
+    X, y = df.drop(columns=["failure"]), df["failure"]
 
     # Load the model from input port
-    model = mlflow.sklearn.load_model(args.model_input)
+    model = mlflow.pyfunc.load_model(args.model_input)
 
     # ---------------- Model Evaluation ---------------- #
-    yhat_test, score = model_evaluation(X_test, y_test, model, args.evaluation_output)
+    yhat, score = model_evaluation(X, y, model, args.evaluation_output)
 
     # ----------------- Model Promotion ---------------- #
     if args.runner == "CloudRunner":
         predictions, deploy_flag = model_promotion(
-            args.model_name, args.evaluation_output, X_test, y_test, yhat_test, score
+            args.model_name, args.evaluation_output, X, y, yhat, score
         )
 
 
 def model_evaluation(X_test, y_test, model, evaluation_output):
+    if not os.path.exists(evaluation_output):
+        os.makedirs(evaluation_output)
     # Get predictions to y_test (y_test)
     yhat_test = model.predict(X_test)
 
@@ -139,6 +134,31 @@ def model_evaluation(X_test, y_test, model, evaluation_output):
 
 
 def model_promotion(model_name, evaluation_output, X_test, y_test, yhat_test, score):
+    """The model_promotion function is responsible for deciding whether the
+    current model should be promoted (deployed) or not. This decision is based
+    on the F1 score of the current model compared to the F1 scores of previous
+    versions of the model.
+
+    The function also logs the deploy flag, the performance comparison plot,
+    and the confusion matrix plot.
+
+    The deploy flag is saved to a file called deploy_flag in the evaluation
+    output directory. The performance comparison plot is saved to a file called
+    perf_comparison.png in the evaluation output directory. The confusion
+    matrix plot is saved to the MLflow artifact store.
+
+    Args:
+        model_name (str): Name of the sklearn model
+        evaluation_output (str): Path to store the eval results (score.txt)
+        X_test (pandas DataFrame): Test dataset
+        y_test (pandas Series): Test labels
+        yhat_test (pandas Series): Predicted labels
+        score (float): F1 score of the current model
+
+    Returns:
+        dict: Predictions of the current and previous versions of the model
+        int: Deploy flag (1: deploy, 0: do not deploy)
+    """
     scores = {}
     predictions = {}
 
@@ -157,19 +177,22 @@ def model_promotion(model_name, evaluation_output, X_test, y_test, yhat_test, sc
     if scores:
         if score >= max(list(scores.values())):
             deploy_flag = 1
+            print(f"Score: {score} greater than {max(list(scores.values()))}")
         else:
             deploy_flag = 0
+            print(f"Score: {score} less than {max(list(scores.values()))}")
     else:
         deploy_flag = 1
+        print("No previous model to compare with.")
 
-    print(f"Deploy flag: {deploy_flag}")
+    print(f"Deploy flag: {deploy_flag}, the model will be deployed.")
 
     with open((Path(evaluation_output) / "deploy_flag"), "w") as outfile:
         outfile.write(f"{int(deploy_flag)}")
 
     # add current model score and predictions
     scores["current model"] = score
-    predictions["currrent model"] = yhat_test
+    predictions["current model"] = yhat_test
 
     perf_comparison_plot = pd.DataFrame(scores, index=["f1 score"]).plot(
         kind="bar", figsize=(15, 10)

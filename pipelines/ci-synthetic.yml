@@ -1,0 +1,77 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+
+type: pipeline
+
+experiment_name: Predictive-Maintenance-with-Synthetic-Data
+display_name: Synthetic-Continuous-Integration-Pipeline
+description: Pipeline to train and evaluate a synthetic predictive maintenance model
+
+tags:
+  "stage": "testing"
+  # "email": "<your-email-address>"
+settings:
+  default_compute: serverless
+
+inputs:
+  model_name: synthetic-pred-maintenance
+  dataset:
+    path: azureml:synthetic-mltable-training@latest
+
+outputs:
+  train_data:
+    type: mltable
+    name: synthetic-mltable-training-train
+  # model_info_output_path:
+  #   type: uri_folder
+  # trained_model:
+  #   type: mlflow_model
+  # test_data:
+  #   type: mltable
+  #   name: synthetic-mltable-training-test
+  # validation_data:
+  #   type: mltable
+  #   name: synthetic-mltable-training-validation
+  # evaluation_output:
+  #   type: uri_folder
+  
+
+jobs:
+  prepare_data:
+    type: command
+    component: ../components/prepare_data.yml
+    inputs:
+      input_dataset: ${{parent.inputs.dataset}}
+      random_state: 23
+    outputs:
+      train_data: ${{parent.outputs.train_data}}
+      test_data: ${{parent.outputs.test_data}}
+      validation_data: ${{parent.outputs.validation_data}}
+
+  train_model:
+    type: command
+    component: ../components/train_model.yml
+    inputs:
+      train_data: ${{parent.jobs.prepare_data.outputs.train_data}}
+      validation_data: ${{parent.jobs.prepare_data.outputs.validation_data}}
+    outputs:
+      trained_model: ${{parent.outputs.trained_model}}
+
+  evaluate_model:
+    type: command
+    component: ../components/evaluate_model.yml
+    inputs:
+      model_input: ${{parent.jobs.train_model.outputs.trained_model}}
+      test_data: ${{parent.jobs.prepare_data.outputs.test_data}}
+      model_name: ${{parent.inputs.model_name}}
+    outputs:
+      evaluation_output: ${{parent.outputs.evaluation_output}}
+
+  register_model:
+    type: command
+    component: ../components/register_model.yml
+    inputs:
+      model_name: ${{parent.inputs.model_name}}
+      model_path: ${{parent.jobs.train_model.outputs.trained_model}}
+      evaluation_output: ${{parent.jobs.evaluate_model.outputs.evaluation_output}}
+    outputs:
+      model_info_output_path: ${{parent.outputs.model_info_output_path}}

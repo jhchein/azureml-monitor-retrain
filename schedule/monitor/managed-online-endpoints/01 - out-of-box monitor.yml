@@ -1,5 +1,5 @@
 # out-of-box-monitoring.yaml
-$schema:  http://azureml/sdk-2-0/Schedule.json
+$schema: https://azuremlschemas.azureedge.net/latest/monitorSchedule.schema.json
 name: diabetes-cli-deployment-2-oob
 display_name: Diabetes Model Monitoring
 description: Diabetes model monitoring setup with minimal configurations
@@ -16,6 +16,6 @@ trigger:
 create_monitor:
   compute: # specify a spark compute for monitoring job
     instance_type: standard_e4s_v3
-    runtime_version: 3.2
+    runtime_version: "3.3"
   monitoring_target:
     endpoint_deployment_id: azureml:clr-diabetes-jhch-demo:cli-deployment-2

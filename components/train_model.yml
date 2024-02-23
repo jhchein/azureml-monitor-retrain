@@ -6,14 +6,17 @@ display_name: Train Model
 
 code: ./train_model
 
-environment: azureml:sklearn-with-mltable:2023-10-04-17:00:00
+environment: azureml:sklearn-with-mltable@latest
 
 is_deterministic: true
 
 inputs:
   train_data:
-    type: uri_folder
-    description: Input file (parquet)
+    type: mltable
+    description: Input file (MLTable, parquet)
+  validation_data:
+    type: mltable
+    description: Input file (MLTable, parquet)
 outputs:
   trained_model:
     type: mlflow_model
@@ -22,4 +25,5 @@ outputs:
 command: >-
   python train_model.py
   --train_data ${{inputs.train_data}}
+  --validation_data ${{inputs.validation_data}}
   --trained_model ${{outputs.trained_model}}
