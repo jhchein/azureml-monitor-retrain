@@ -37,7 +37,7 @@ create_monitor:
           path: azureml:synthetic-urifolder-production-outputs@latest
           type: uri_folder
         data_context: model_inputs
-        pre_processing_component: azureml:preprocess_synthetic_data_spark:2024-02-12-13-39-42-1586336
+        pre_processing_component: azureml:preprocess_synthetic_data_spark:1
         data_window:
             lookback_window_offset: P0D
             lookback_window_size: P7D
@@ -63,7 +63,7 @@ create_monitor:
           path: azureml:synthetic-urifolder-production-outputs@latest
           type: uri_folder
         data_context: model_inputs
-        pre_processing_component: azureml:preprocess_synthetic_data_spark:2024-02-12-13-39-42-1586336
+        pre_processing_component: azureml:preprocess_synthetic_data_spark:1
         data_window:
             lookback_window_offset: P0D
             lookback_window_size: P7D
@@ -87,7 +87,7 @@ create_monitor:
           path: azureml:synthetic-urifolder-production-outputs@latest
           type: uri_folder
         data_context: model_inputs
-        pre_processing_component: azureml:preprocess_synthetic_data_spark:2024-02-12-13-39-42-1586336
+        pre_processing_component: azureml:preprocess_synthetic_data_spark:1
         data_window:
             lookback_window_offset: P0D
             lookback_window_size: P7D
