@@ -1,0 +1,52 @@
+{
+  "input_data": {
+    "columns": [
+      "heat_deviation",
+      "speed_deviation",
+      "days_since_last_service",
+      "sensor_back",
+      "sensor_front",
+      "operator0",
+      "operator1",
+      "operator2",
+      "operator3",
+      "operator4",
+      "operator5",
+      "operator6",
+      "operator7",
+      "assembly_0",
+      "assembly_1",
+      "assembly_2",
+      "assembly_3",
+      "assembly_4",
+      "assembly_5",
+      "assembly_6"
+    ],
+    "index": [0],
+    "data": [
+      [
+        -0.819,
+        -0.442,
+        100,
+        -0.585,
+        -0.15,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ]
+  },
+  "params": {}
+}
