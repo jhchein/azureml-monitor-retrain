@@ -2,7 +2,7 @@
 
 ## MUST
 
-- Done
+- Done.
 
 ## Should
 
