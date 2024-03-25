@@ -31,7 +31,9 @@ create_monitor:
           path: azureml:synthetic-mltable-training@latest
           type: mltable
         data_context: training
-        target_column_name: failure
+        # target_column_name: failure
+        data_column_names:
+          target_column: failure
       production_data:
         input_data:
           path: azureml:synthetic-urifolder-production-outputs@latest
@@ -56,7 +58,9 @@ create_monitor:
         input_data:
           path: azureml:synthetic-mltable-training@latest
           type: mltable
-        target_column_name: failure
+        # target_column_name: failure
+        data_column_names:
+          target_column: failure
         data_context: training
       production_data:
         input_data:
