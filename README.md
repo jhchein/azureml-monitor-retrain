@@ -102,7 +102,8 @@ This [guide](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-mon
 
 Similarly, if you created a CD pipeline and GitHub Action, we can develop a second Logic App (or use some logic with conditionals) that listens to `model registered` events and triggers a CI repository dispatch for retraining a model.
 
-Remember, this is a simplified process that provides you with the basic building blocks. For more comprehensive information and best practices, check [the Azure ML OPs v2 solution accelerator](aka.ms/MLopsv2).
+Remember, this is a simplified process that provides you with the basic building blocks. For more comprehensive information and best practices, check [the Azure ML OPs v2 solution accelerator](https://github.com/Azure/mlops-v2).
+
 
 ## Wrapping Up 🎁
 
