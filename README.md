@@ -27,7 +27,7 @@ The two notebooks `00 - Prepare Data Assets.ipynb` and `01 - Train and Deploy.ip
 
 AzureML Monitoring requires a Spark Component to translate production data (from a Uri_folder) to a relational format (mltable). We will therefore need to register a preprocessing component.preprocess_synthetic_data_spark
 
-Feel free to investigate `components/preprocess_synthetic_data_spark/preprocess_synthetic_data_spark.yml`, then afterwards, register the component via `az ml component create -f components/preprocess_synthetic_data_spark/preprocess_synthetic_data_spark.yml`.
+Feel free to investigate `components/preprocess_synthetic_data/preprocess_synthetic_data.yml`, then afterwards, register the component via `az ml component create -f components/preprocess_synthetic_data/preprocess_synthetic_data.yml`.
 
 #### Scheduling the Monitor 📊
 
