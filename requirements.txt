@@ -1,0 +1,10 @@
+ipykernel
+python-dotenv
+scikit-learn
+azure-identity
+azure-ai-ml
+mltable
+azureml-dataprep
+azureml-mlflow
+mlflow
+#azureml-fsspec
