@@ -4,7 +4,7 @@
 
 A quick start to develop your own model and data monitoring using the latest AzureML Monitoring. As monitoring is pretty straightforward using managed online endpoints, this quickstart focuses on the **bring your own production data** scenario.
 
-> The content of this repository was now integrated into the official [AzureML Examples / AzureML End-to-End Monitoring](https://github.com/Azure/azureml-examples/tree/main/cli/monitoring/azureml-e2e-model-monitoring) as is since now more maintained.
+> Since the content of this repository was integrated into the official [AzureML Examples / AzureML End-to-End Monitoring](https://github.com/Azure/azureml-examples/tree/main/cli/monitoring/azureml-e2e-model-monitoring) it is no more maintained.
 
 ## Prerequisites
 
