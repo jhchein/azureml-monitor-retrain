@@ -21,19 +21,6 @@ outputs:
   train_data:
     type: mltable
     name: synthetic-urifile-train
-  # model_info_output_path:
-  #   type: uri_folder
-  # trained_model:
-  #   type: mlflow_model
-  # test_data:
-  #   type: mltable
-  #   name: synthetic-mltable-training-test
-  # validation_data:
-  #   type: mltable
-  #   name: synthetic-mltable-training-validation
-  # evaluation_output:
-  #   type: uri_folder
-  
 
 jobs:
   prepare_data:

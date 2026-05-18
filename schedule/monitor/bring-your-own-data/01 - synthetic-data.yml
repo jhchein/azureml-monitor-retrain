@@ -107,7 +107,7 @@ create_monitor:
         categorical:
           jensen_shannon_distance: 0.1
 
-
-  alert_notification:
-    emails:
-      - hehein@microsoft.com
+  # Uncomment and add your email address for alert notifications
+  # alert_notification:
+  #   emails:
+  #     - "<your-email-address>"
